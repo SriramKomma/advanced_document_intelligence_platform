@@ -17,6 +17,8 @@ An end-to-end LLM-powered Document Intelligence System built using:
 This system extracts, indexes, and intelligently answers questions from uploaded documents using Retrieval-Augmented Generation (RAG).
 
 🖥️ Application Screenshot
+<img width="1907" height="877" alt="image" src="https://github.com/user-attachments/assets/3f824cb0-ffd0-4533-9456-4c5ca7dc09b9" />
+
 
 🏗️ Architecture Overview
 User (React UI)

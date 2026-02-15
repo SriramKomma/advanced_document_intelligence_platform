@@ -1,215 +1,211 @@
-LLM-Powered Document Intelligence Platform
-Introduction
+📄 AI Document Intelligence Platform 
 
-QueryPilot is a Retrieval-Augmented Generation (RAG) based document intelligence system that allows users to upload documents and query them using natural language.
+An end-to-end LLM-powered Document Intelligence System built using:
 
-The system processes documents, generates embeddings, stores them in a vector database, retrieves relevant information, and uses a Large Language Model (LLM) to generate accurate, context-aware responses.
+⚛️ React (Frontend UI)
 
-System Architecture
+🧠 PaddleOCR (OCR Engine)
 
-The platform is built using a modular 5-layer architecture:
+📑 PyMuPDF (PDF Parsing)
 
-User Layer (Streamlit UI)
+🔎 all-MiniLM-L6-v2 (Embeddings)
 
-API Layer (FastAPI)
+🗂 FAISS (Vector Database)
 
-RAG System Core
+🚀 Groq API (LLM Inference)
 
-Data Storage Layer
+This system extracts, indexes, and intelligently answers questions from uploaded documents using Retrieval-Augmented Generation (RAG).
 
-External Systems
+🖥️ Application Screenshot
 
-1️⃣ User Layer (Streamlit UI)
+🏗️ Architecture Overview
+User (React UI)
+        ↓
+OCR (PaddleOCR)
+        ↓
+PDF Parsing (PyMuPDF)
+        ↓
+Text Chunking
+        ↓
+Embeddings (all-MiniLM-L6-v2)
+        ↓
+FAISS Vector Store
+        ↓
+Groq API (LLM)
+        ↓
+Response to User
 
-The User Layer provides the interface for interacting with the system.
+📦 Tech Stack
+🎨 User Layer (Frontend)
 
-Responsibilities:
+React.js
 
-Upload documents (PDF, DOCX, TXT, Images)
+Axios (API calls)
 
-Ask questions in natural language
+Modern UI with document upload & chat interface
 
-View AI-generated responses
+🔍 Document Processing Layer
 
-Display document references and images
+PaddleOCR → Extract text from images & scanned PDFs
 
-Manage workspaces
+PyMuPDF → Parse structured PDF content
 
-Streamlit acts as the frontend interface and communicates with the FastAPI backend.
+Custom Text Chunking → Split text for embedding
 
-2️⃣ API Layer (FastAPI)
+🧠 Embedding Model
 
-The API Layer acts as the communication bridge between the frontend and the RAG core.
+all-MiniLM-L6-v2
 
-Responsibilities:
+Converts text chunks into dense vectors
 
-Handle file uploads
+🗄 Vector Database
 
-Handle user queries
+FAISS
 
-Route requests to the RAG engine
+Fast similarity search
 
-Return responses to frontend
+Stores document embeddings
 
-Manage workspaces and files
+🚀 API Layer
 
-Example endpoints:
+FastAPI (Backend)
 
-POST /upload
-POST /query
-GET /workspaces
+Groq API (LLM inference)
 
+RAG Pipeline integration
 
-FastAPI ensures scalability, asynchronous handling, and production readiness.
+⚙️ Features
 
-3️⃣ RAG System Core
+✅ Upload PDF / Image documents
 
-The RAG (Retrieval-Augmented Generation) Core is the brain of the system.
+✅ OCR for scanned documents
 
-It consists of:
+✅ Automatic text extraction
 
-Document Processor
+✅ Semantic search using FAISS
 
-Embedding Generator
+✅ Groq-powered LLM responses
 
-Vector Search Engine
+✅ Context-aware Q&A (RAG)
 
-Language Model
+✅ Clean React UI
 
-Retrieval Logic
+📂 Project Structure
+project-root/
+│
+├── frontend/              # React Application
+│
+├── backend/
+│   ├── main.py            # FastAPI server
+│   ├── ocr.py             # PaddleOCR logic
+│   ├── pdf_parser.py      # PyMuPDF logic
+│   ├── embeddings.py      # MiniLM embedding logic
+│   ├── vector_store.py    # FAISS setup
+│   ├── rag_pipeline.py    # Retrieval + Groq integration
+│
+├── docs/
+│   └── screenshot.jpg
+│
+├── requirements.txt
+└── README.md
 
-Document Processing Pipeline
+🔄 RAG Pipeline Flow
+1️⃣ Upload Document
 
-Extract text from document
+User uploads PDF/Image via React UI.
 
-Clean and normalize content
+2️⃣ OCR Processing
 
-Split into chunks
+PaddleOCR extracts text (for scanned docs).
 
-Generate embeddings
+3️⃣ PDF Parsing
 
-Store embeddings in vector database
+PyMuPDF extracts structured text & metadata.
 
-Query Processing Flow
+4️⃣ Text Chunking
 
-Receive user question
+Large text is split into manageable chunks.
+
+5️⃣ Embedding Generation
+
+all-MiniLM-L6-v2 converts chunks into vectors.
+
+6️⃣ FAISS Indexing
+
+Vectors stored in FAISS for similarity search.
+
+7️⃣ Query Processing
+
+User question →
 
 Convert question into embedding
 
-Retrieve top-k similar document chunks
+Retrieve top relevant chunks from FAISS
 
-Construct prompt with retrieved context
+Send context + question to Groq API
 
-Send prompt to LLM
+8️⃣ Final Answer
 
-Generate grounded answer
+LLM generates accurate context-grounded response.
 
-Return response to user
+🔐 Environment Variables
 
-This architecture reduces hallucinations and ensures responses are based on document context.
+Create a .env file in backend:
 
-4️⃣ Data Storage Layer
+GROQ_API_KEY=your_groq_api_key
 
-The system uses two storage mechanisms:
+🛠️ Installation Guide
+1️⃣ Clone Repository
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
 
-1. Vector Database (ChromaDB / FAISS)
+2️⃣ Backend Setup
+cd backend
+python -m venv venv
+source venv/bin/activate   # macOS/Linux
+venv\Scripts\activate      # Windows
 
-Stores:
-
-Text embeddings
-
-Image embeddings
-
-Metadata
-
-Document IDs
-
-Used for semantic similarity search.
-
-2. Relational Database (MySQL)
-
-Stores:
-
-Workspace information
-
-File metadata
-
-User credentials
-
-Upload records
-
-3. File Storage
-
-Stores:
-
-Original uploaded documents
-
-Processed assets
-
-5️⃣ External Systems
-
-The architecture allows integration with external systems such as:
-
-Google Gemini API (LLM provider)
-
-Cloud storage systems
-
-Enterprise document repositories
-
-Third-party APIs
-
-Authentication services
-
-This ensures the platform is extensible and production-ready.
-
-Technology Stack
-Frontend
-
-Streamlit
-
-Backend
-
-FastAPI
-
-Python 3.11
-
-AI & Embeddings
-
-Sentence Transformers
-
-Google Gemini API (LLM)
-
-Databases
-
-MySQL
-
-ChromaDB
-
-Infrastructure
-
-Docker
-
-Nginx
-
-Deployment
-Development
-docker-compose up -d
+pip install -r requirements.txt
 
 
-Access:
+Run backend:
 
-http://localhost:8501
+uvicorn main:app --reload
 
-Why This Architecture?
+3️⃣ Frontend Setup
+cd frontend
+npm install
+npm start
 
-Modular and scalable
+📡 API Endpoints
+Method	Endpoint	Description
+POST	/upload	Upload document
+POST	/query	Ask question
+GET	/health	API status
+🧠 Why Groq API?
 
-Clear separation of concerns
+⚡ Ultra-fast inference
 
-LLM grounded with document context
+💰 Free-tier friendly
 
-Supports multi-modal data
+🧠 Supports LLaMA models
 
-Production deployable
+🚀 Great for RAG systems
 
-Easily extendable
+📊 Future Improvements
+
+Multi-document support
+
+Persistent vector storage
+
+User authentication
+
+Conversation memory
+
+Streaming responses
+
+Cloud deployment (AWS/GCP)
+
+👨‍💻 Author
+
+Built as a full-stack AI Document Intelligence System using modern RAG architecture.
